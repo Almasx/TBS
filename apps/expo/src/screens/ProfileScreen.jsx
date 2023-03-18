@@ -1,56 +1,98 @@
-import React, { useState } from "react";
+import React from "react";
+import { View, SafeAreaView, StyleSheet } from "react-native";
 import {
-  View,
+  Avatar,
+  Title,
+  Caption,
   Text,
-  StyleSheet,
-  Image,
-  Button,
-  TouchableOpacity,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Avatar, Caption, Title, TouchableRipple } from "react-native-paper";
-import { StackActions, useNavigation } from "@react-navigation/native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+  TouchableRipple,
+} from "react-native-paper";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import WelcomeScreen from "./WelcomeScreen";
+import Font from "../constants/Font";
 
-export default function ProfileScreen() {
-  const navigation = useNavigation();
-
-  const Stack = createStackNavigator();
-
-  const navto = () => {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen component={SignInScreen} name="SignIn" />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  };
-
+export const ProfileScreen = ({ navigation: { navigate } }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.userInfoSection}>
-        <View style={{ flexDirection: "row", marginTop: 15, marginBottom: 10 }}>
+        <View style={{ flexDirection: "row", marginTop: 15 }}>
           <Avatar.Image
-            source={require("../../assets/img/Profile.png")}
+            source={{
+              uri: "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=",
+            }}
             size={80}
           />
           <View style={{ marginLeft: 20 }}>
-            <Title style={styles.title}>Nassipkali Yernur</Title>
-            <Caption style={styles.caption}>Developer</Caption>
+            <Title
+              style={[
+                styles.title,
+
+                {
+                  marginTop: 15,
+                  marginBottom: 5,
+                  fontFamily: Font["poppins-bold"],
+                },
+              ]}
+            >
+              Nassipkali Yernur
+            </Title>
           </View>
         </View>
-
-        <Button
-          style={styles.btnlog}
-          title="Log out"
-          onPress={() => navigation.navigate("SignIn")}
-        ></Button>
       </View>
+
+      <View style={styles.userInfoSection}>
+        <View style={styles.row}>
+          <MaterialCommunityIcons
+            name="map-marker-radius"
+            color="#777777"
+            size={20}
+          />
+          <Text
+            style={{
+              color: "#777777",
+              marginLeft: 20,
+              fontFamily: Font["poppins-regular"],
+            }}
+          >
+            Uralsk, Kazakhstan
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <MaterialCommunityIcons name="phone" color="#777777" size={20} />
+          <Text
+            style={{
+              color: "#777777",
+              marginLeft: 20,
+              fontFamily: Font["poppins-regular"],
+            }}
+          >
+            +7-747-046-78-97
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <MaterialCommunityIcons name="email" color="#777777" size={20} />
+          <Text
+            style={{
+              color: "#777777",
+              marginLeft: 20,
+              fontFamily: Font["poppins-regular"],
+            }}
+          >
+            nassipkaliv@gmail.com
+          </Text>
+        </View>
+      </View>
+      <TouchableOpacity onPress={() => navigate("Login")}>
+        <Text
+          style={{ textAlign: "center", fontFamily: Font["poppins-regular"] }}
+        >
+          Sign Out
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -65,12 +107,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   caption: {
-    fontSize: 14,
+    fontSize: 24,
     lineHeight: 14,
     fontWeight: "500",
   },
-  btnlog: {
-    fontSize: 14,
-    fontWeight: "bold",
+  row: {
+    flexDirection: "row",
+    marginBottom: 10,
   },
 });

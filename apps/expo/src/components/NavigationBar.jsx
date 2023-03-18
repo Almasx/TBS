@@ -1,13 +1,14 @@
 import React from "react";
 import { NavigationContainer, StackActions } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import { Ionicons } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 
 // Screens
 import QrScreen from "../screens/QrScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import { ProfileScreen } from "../screens/ProfileScreen";
 import HomeScreen from "../screens/HomeScreen";
+import Font from "../constants/Font";
 // import AuthScreen from '../screens/AuthScreen';
 
 const homeName = "Home";
@@ -19,13 +20,17 @@ const Stack = createStackNavigator();
 
 function NavigationBar() {
   return (
-    <NavigationContainer>
+    <NavigationContainer independent={true}>
       <Tab.Navigator
         initialRouteName={homeName}
         screenOptions={({ route }) => ({
           inactiveTintColor: "grey",
           labelStyle: { paddingBottom: 10, fontSize: 10 },
-          style: { padding: 10, height: 70 },
+          style: {
+            padding: 10,
+            height: 70,
+            fontFamily: Font["poppins-bold"],
+          },
           headerShown: false,
 
           tabBarIcon: ({ focused, color, size }) => {

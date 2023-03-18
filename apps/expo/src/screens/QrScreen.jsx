@@ -37,7 +37,9 @@ export default function QrScreen() {
   if (hasPermission === false) {
     return (
       <View style={styles.container}>
-        <Text style={{ margin: 10 }}>No access to camera</Text>
+        <Text style={{ margin: 10, fontFamily: Font["poppins-regular"] }}>
+          No access to camera
+        </Text>
         <Button
           title={"Allow Camera"}
           onPress={() => askForCameraPermission()}
