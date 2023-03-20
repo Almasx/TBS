@@ -35,21 +35,11 @@ const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
             style={{
               fontSize: FontSize.xLarge,
               color: Colors.primary,
-              fontFamily: Font["poppins-bold"],
+              fontFamily: Font["montserrat-bold"],
               marginVertical: Spacing * 3,
             }}
           >
             Create account
-          </Text>
-          <Text
-            style={{
-              fontFamily: Font["poppins-regular"],
-              fontSize: FontSize.small,
-              maxWidth: "80%",
-              textAlign: "center",
-            }}
-          >
-            Create an account
           </Text>
         </View>
         <View
@@ -63,6 +53,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
         </View>
 
         <TouchableOpacity
+          onPress={() => navigate("Navigation")}
           style={{
             padding: Spacing * 2,
             backgroundColor: Colors.primary,
@@ -79,7 +70,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
         >
           <Text
             style={{
-              fontFamily: Font["poppins-bold"],
+              fontFamily: Font["montserrat-bold"],
               color: Colors.onPrimary,
               textAlign: "center",
               fontSize: FontSize.large,
@@ -96,7 +87,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
         >
           <Text
             style={{
-              fontFamily: Font["poppins-semiBold"],
+              fontFamily: Font["montserrat-semiBold"],
               color: Colors.text,
               textAlign: "center",
               fontSize: FontSize.small,
@@ -113,7 +104,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
         >
           <Text
             style={{
-              fontFamily: Font["poppins-semiBold"],
+              fontFamily: Font["montserrat-semiBold"],
               color: Colors.primary,
               textAlign: "center",
               fontSize: FontSize.small,

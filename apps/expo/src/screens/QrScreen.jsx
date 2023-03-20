@@ -37,7 +37,7 @@ export default function QrScreen() {
   if (hasPermission === false) {
     return (
       <View style={styles.container}>
-        <Text style={{ margin: 10, fontFamily: Font["poppins-regular"] }}>
+        <Text style={{ margin: 10, fontFamily: Font["montserrat-regular"] }}>
           No access to camera
         </Text>
         <Button

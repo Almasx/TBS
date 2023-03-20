@@ -9,7 +9,6 @@ import {
 } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import WelcomeScreen from "./WelcomeScreen";
 import Font from "../constants/Font";
 
 export const ProfileScreen = ({ navigation: { navigate } }) => {
@@ -31,7 +30,7 @@ export const ProfileScreen = ({ navigation: { navigate } }) => {
                 {
                   marginTop: 15,
                   marginBottom: 5,
-                  fontFamily: Font["poppins-bold"],
+                  fontFamily: Font["montserrat-bold"],
                 },
               ]}
             >
@@ -52,7 +51,7 @@ export const ProfileScreen = ({ navigation: { navigate } }) => {
             style={{
               color: "#777777",
               marginLeft: 20,
-              fontFamily: Font["poppins-regular"],
+              fontFamily: Font["montserrat-regular"],
             }}
           >
             Uralsk, Kazakhstan
@@ -64,7 +63,7 @@ export const ProfileScreen = ({ navigation: { navigate } }) => {
             style={{
               color: "#777777",
               marginLeft: 20,
-              fontFamily: Font["poppins-regular"],
+              fontFamily: Font["montserrat-regular"],
             }}
           >
             +7-747-046-78-97
@@ -76,7 +75,7 @@ export const ProfileScreen = ({ navigation: { navigate } }) => {
             style={{
               color: "#777777",
               marginLeft: 20,
-              fontFamily: Font["poppins-regular"],
+              fontFamily: Font["montserrat-regular"],
             }}
           >
             nassipkaliv@gmail.com
@@ -85,7 +84,10 @@ export const ProfileScreen = ({ navigation: { navigate } }) => {
       </View>
       <TouchableOpacity onPress={() => navigate("Login")}>
         <Text
-          style={{ textAlign: "center", fontFamily: Font["poppins-regular"] }}
+          style={{
+            textAlign: "center",
+            fontFamily: Font["montserrat-regular"],
+          }}
         >
           Sign Out
         </Text>

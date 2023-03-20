@@ -6,7 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 // Screens
 import QrScreen from "../screens/QrScreen";
-import { ProfileScreen } from "../screens/ProfileScreen";
+import { ProfileScreen } from "../screens/ProfileScreen.jsx";
 import HomeScreen from "../screens/HomeScreen";
 import Font from "../constants/Font";
 // import AuthScreen from '../screens/AuthScreen';

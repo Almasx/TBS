@@ -39,7 +39,7 @@ const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
             style={{
               fontSize: FontSize.xxLarge,
               color: Colors.primary,
-              fontFamily: Font["poppins-bold"],
+              fontFamily: Font["montserrat-bold"],
               textAlign: "center",
             }}
           >
@@ -50,7 +50,7 @@ const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
             style={{
               fontSize: FontSize.small,
               color: Colors.text,
-              fontFamily: Font["poppins-regular"],
+              fontFamily: Font["montserrat-regular"],
               textAlign: "center",
               marginTop: Spacing * 2,
             }}
@@ -68,7 +68,6 @@ const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
           <TouchableOpacity
             onPress={() => navigate("Login")}
             style={{
-              backgroundColor: Colors.primary,
               paddingVertical: Spacing * 1.5,
               paddingHorizontal: Spacing * 2,
               width: "48%",
@@ -84,8 +83,8 @@ const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
           >
             <Text
               style={{
-                fontFamily: Font["poppins-bold"],
-                color: Colors.onPrimary,
+                fontFamily: Font["montserrat-bold"],
+                color: Colors.text,
                 fontSize: FontSize.large,
                 textAlign: "center",
               }}
@@ -104,7 +103,7 @@ const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
           >
             <Text
               style={{
-                fontFamily: Font["poppins-bold"],
+                fontFamily: Font["montserrat-bold"],
                 color: Colors.text,
                 fontSize: FontSize.large,
                 textAlign: "center",

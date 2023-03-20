@@ -6,7 +6,7 @@ import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import Welcome from "../screens/WelcomeScreen";
 import NavigationBar from "./NavigationBar";
-
+import Splash from "../screens/Splash";
 import { RootStackParamList } from "../types";
 
 const theme = {
@@ -34,7 +34,7 @@ function RootNavigator() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="Navigation" component={NavigationBar} />
