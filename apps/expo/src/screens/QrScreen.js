@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button, Image } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import ScanIn from "../../assets/img/ScanIN.png";
+import ScanOut from "../../assets/img/ScanOUT.png";
 
 export default function QrScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [text, setText] = useState("Сканирование QR-кода");
+  let [press, setPress] = useState(true);
+  let scanSwitch = () => setPress((previousState) => !previousState);
+
+  let imageUri = press ? ScanIn : ScanOut;
 
   const askForCameraPermission = () => {
     (async () => {
@@ -22,7 +28,7 @@ export default function QrScreen() {
   // What happens when we scan the bar code
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    setText(data);
+
     console.log("Type: " + type + "\nData: " + data);
   };
 
@@ -52,37 +58,37 @@ export default function QrScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.barcodebox}>
-        <Image styles={{ height: 100, width: 100 }} />
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={{ height: 400, width: 400 }}
-        />
+          style={{ height: "100%", width: "100%" }}
+        >
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <TouchableOpacity onPress={() => scanSwitch()}>
+              <Image
+                style={{
+                  height: 280,
+                  width: 300,
+                }}
+                source={imageUri}
+              />
+            </TouchableOpacity>
+          </View>
+        </BarCodeScanner>
       </View>
-      <Text style={styles.maintext}>{text}</Text>
-      {scanned && (
-        <Button title={"Scan again?"} onPress={() => setScanned(false)} />
-      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
-  maintext: {
-    fontSize: 16,
-    margin: 20,
-  },
+
   barcodebox: {
-    alignItems: "center",
-    justifyContent: "center",
-    height: 300,
-    width: 300,
+    height: "100%",
+    width: "100%",
     overflow: "hidden",
-    borderRadius: 30,
   },
 });
