@@ -15,15 +15,13 @@ const Splash = ({ navigation }) => {
         alignItems: "center",
       }}
     >
-      <StatusBar
-        barStyle="light-content"
-        hidden={false}
-        backgroundColor="#465bd8"
-      />
       <Image
         source={require("../../assets/img/Splash.png")}
         style={{ width: 256, height: 94 }}
       />
+      <Text style={{ color: '#2A59FE', alignItems:'center', justifyContent: 'center', position: 'absolute', bottom: 0}}>
+        By TBS Solutions
+      </Text>
     </View>
   );
 };

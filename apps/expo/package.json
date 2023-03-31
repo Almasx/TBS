@@ -8,7 +8,10 @@
     "dev:android": "expo start --android",
     "dev:ios": "expo start --ios",
     "lint": "eslint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@acme/api": "*",
@@ -24,6 +27,8 @@
     "@trpc/server": "^10.8.1",
     "deprecated-react-native-prop-types": "^4.0.0",
     "expo": "~47.0.12",
+    "expo-constants": "^14.2.1",
+    "expo-permissions": "^14.1.1",
     "expo-status-bar": "~1.4.2",
     "expo-updates": "~0.15.6",
     "nativewind": "^2.0.11",
@@ -31,8 +36,12 @@
     "react-devtools-core": "^4.27.2",
     "react-dom": "18.1.0",
     "react-native": "0.70.5",
+    "react-native-camera": "^4.2.1",
     "react-native-debugger": "^1.1.0",
-    "react-native-safe-area-context": "^4.4.1"
+    "react-native-eject": "^0.2.0",
+    "react-native-permissions": "^3.8.0",
+    "react-native-safe-area-context": "^4.4.1",
+    "expo-splash-screen": "~0.17.5"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
