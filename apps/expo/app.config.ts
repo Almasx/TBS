@@ -1,6 +1,7 @@
 import type { ExpoConfig } from "@expo/config";
 
-const CLERK_PUBLISHABLE_KEY = "pk_test_bm90YWJsZS1kYXNzaWUtNzMuY2xlcmsuYWNjb3VudHMuZGV2JA";
+const CLERK_PUBLISHABLE_KEY =
+  "pk_test_bm90YWJsZS1kYXNzaWUtNzMuY2xlcmsuYWNjb3VudHMuZGV2JA";
 
 const defineConfig = (): ExpoConfig => ({
   name: "expo",
@@ -35,7 +36,15 @@ const defineConfig = (): ExpoConfig => ({
     },
     CLERK_PUBLISHABLE_KEY,
   },
-  plugins: ["./expo-plugins/with-modify-gradle.js"],
+  plugins: [
+    "./expo-plugins/with-modify-gradle.js",
+    [
+      "expo-barcode-scanner",
+      {
+        cameraPermission: "Allow $(PRODUCT_NAME) to access camera.",
+      },
+    ],
+  ],
 });
 
 export default defineConfig;

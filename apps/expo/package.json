@@ -20,6 +20,8 @@
     "@trpc/react-query": "^10.18.0",
     "@trpc/server": "^10.18.0",
     "expo": "^48.0.10",
+    "expo-auth-session": "~4.0.3",
+    "expo-barcode-scanner": "~12.3.2",
     "expo-constants": "~14.2.1",
     "expo-linking": "~4.0.1",
     "expo-router": "^1.4.3",

@@ -1,134 +1,89 @@
-import React from "react";
-import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Button, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { BarCodeScanner } from "expo-barcode-scanner";
 import { Stack, useRouter } from "expo-router";
-import { FlashList } from "@shopify/flash-list";
+import { useAuth } from "@clerk/clerk-expo";
 
+// import ScanIn from "../../assets/img/ScanIN.png";
+// import ScanOut from "../../assets/img/ScanOUT.png";
 import { api, type RouterOutputs } from "../utils/api";
 
-const PostCard: React.FC<{
-  post: RouterOutputs["post"]["all"][number];
-  onDelete: () => void;
-}> = ({ post, onDelete }) => {
-  const router = useRouter();
-
-  return (
-    <View className="flex flex-row rounded-lg bg-white/10 p-4">
-      <View className="flex-grow">
-        <TouchableOpacity onPress={() => router.push(`/post/${post.id}`)}>
-          <Text className="text-xl font-semibold text-pink-400">
-            {post.title}
-          </Text>
-          <Text className="mt-2 text-white">{post.content}</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity onPress={onDelete}>
-        <Text className="font-bold uppercase text-pink-400">Delete</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-const CreatePost: React.FC = () => {
-  const utils = api.useContext();
-
-  const [title, setTitle] = React.useState("");
-  const [content, setContent] = React.useState("");
-
-  const { mutate, error } = api.post.create.useMutation({
-    async onSuccess() {
-      setTitle("");
-      setContent("");
-      await utils.post.all.invalidate();
-    },
-  });
-
-  return (
-    <View className="mt-4">
-      <TextInput
-        className="mb-2 rounded bg-white/10 p-2 text-white"
-        placeholderTextColor="rgba(255, 255, 255, 0.5)"
-        value={title}
-        onChangeText={setTitle}
-        placeholder="Title"
-      />
-      {error?.data?.zodError?.fieldErrors.title && (
-        <Text className="mb-2 text-red-500">
-          {error.data.zodError.fieldErrors.title}
-        </Text>
-      )}
-      <TextInput
-        className="mb-2 rounded bg-white/10 p-2 text-white"
-        placeholderTextColor="rgba(255, 255, 255, 0.5)"
-        value={content}
-        onChangeText={setContent}
-        placeholder="Content"
-      />
-      {error?.data?.zodError?.fieldErrors.content && (
-        <Text className="mb-2 text-red-500">
-          {error.data.zodError.fieldErrors.content}
-        </Text>
-      )}
-      <TouchableOpacity
-        className="rounded bg-pink-400 p-2"
-        onPress={() => {
-          mutate({
-            title,
-            content,
-          });
-        }}
-      >
-        <Text className="font-semibold text-white">Publish post</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
 const Index = () => {
-  const utils = api.useContext();
+  const [hasPermission, setHasPermission] = useState<boolean>(false);
+  const [scanned, setScanned] = useState(false);
+  const { userId } = useAuth();
 
-  const postQuery = api.post.all.useQuery();
-
-  const deletePostMutation = api.post.delete.useMutation({
-    onSettled: () => utils.post.all.invalidate(),
+  const { mutate: visit } = api.visit.create.useMutation({
+    onSuccess: (data) => console.log(data),
   });
 
-  return (
-    <SafeAreaView className="bg-[#0d0918]">
-      {/* Changes page title visible on the header */}
-      <Stack.Screen options={{ title: "Home Pagef" }} />
-      <View className="h-full w-full p-4">
-        <Text className="mx-auto pb-2 text-5xl font-bold text-white">
-          Create <Text className="text-pink-400">T3</Text> Turbo
-        </Text>
+  const getBarCodeScannerPermissions = async () => {
+    const { status } = await BarCodeScanner.requestPermissionsAsync();
+    setHasPermission(status === "granted");
+  };
 
-        <Button
-          onPress={() => void utils.post.all.invalidate()}
-          title="Refresh posts"
-          color={"#f472b6"}
-        />
+  useEffect(() => {
+    void getBarCodeScannerPermissions();
+  }, []);
 
-        <View className="py-2">
-          <Text className="font-semibold italic text-white">
-            Press on a post
-          </Text>
-        </View>
+  const handleBarCodeScanned = ({ type, data }) => {
+    setScanned(true);
+    // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    visit();
+  };
 
-        <FlashList
-          data={postQuery.data}
-          estimatedItemSize={20}
-          ItemSeparatorComponent={() => <View className="h-2" />}
-          renderItem={(p) => (
-            <PostCard
-              post={p.item}
-              onDelete={() => deletePostMutation.mutate(p.item.id)}
-            />
-          )}
-        />
-
-        <CreatePost />
+  // Check permissions and return the screens
+  if (hasPermission === null) {
+    return (
+      <View className="bg-white">
+        <Text>Requesting for camera permission</Text>
       </View>
-    </SafeAreaView>
+    );
+  }
+  if (hasPermission === false) {
+    return (
+      <View className="bg-white">
+        <Text className="m-2">No access to camera</Text>
+        <Button
+          title={"Allow Camera"}
+          onPress={() => void getBarCodeScannerPermissions()}
+        />
+      </View>
+    );
+  }
+
+  // Return the View
+  return (
+    <View className="bg-white">
+      <View className="h-full w-full overflow-hidden">
+        <BarCodeScanner
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          style={{ height: "100%", width: "100%" }}
+        >
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            {scanned && (
+              <Button
+                title={"Tap to Scan Again"}
+                onPress={() => setScanned(false)}
+              />
+            )}
+            {/* <TouchableOpacity onPress={() => console.log("dd")}>
+               <Image
+                style={{
+                  height: 280,
+                  width: 300,
+                }}
+                alt="lol"
+                source={S}
+              /> 
+            </TouchableOpacity> */}
+          </View>
+        </BarCodeScanner>
+      </View>
+    </View>
   );
 };
 
