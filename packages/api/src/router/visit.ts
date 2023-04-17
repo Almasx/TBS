@@ -1,6 +1,19 @@
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const visitRouter = createTRPCRouter({
+  all: protectedProcedure.query(({ ctx }) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    console.log(today);
+
+    return ctx.prisma.visit.findMany({
+      where: {
+        createdAt: {
+          gte: today,
+        },
+      },
+    });
+  }),
   create: protectedProcedure.mutation(async ({ ctx }) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
